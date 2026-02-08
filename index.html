@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF69B4 100%);
+            transition: background 0.5s ease;
+        }
+
+        /* Main Page */
+        .main-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .main-container h1 {
+            color: #8B0000;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #DC143C, #FF69B4);
+            color: white;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.4);
+        }
+
+        .btn-no {
+            background: rgba(220, 20, 60, 0.3);
+            color: #8B0000;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .btn-no:hover {
+            background: rgba(220, 20, 60, 0.5);
+            transform: scale(1.05);
+        }
+
+        .btn-no.escaping {
+            background: white;
+            color: #8B0000;
+            position: fixed !important;
+            z-index: 1000 !important;
+        }
+
+        /* Yes Page */
+        .yes-page {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .yes-container {
+            background: rgba(255, 182, 193, 0.9);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(139, 0, 0, 0.5);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.8s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .yes-container h2 {
+            color: #8B0000;
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .love-message {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .love-message p {
+            color: #C41E3A;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.6;
+            letter-spacing: 1px;
+        }
+
+        .hearts {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: heartBeat 1s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .back-button {
+            background: rgba(139, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(139, 0, 0, 0.7);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 30px 20px;
+            }
+
+            .main-container h1 {
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .button-container {
+                gap: 15px;
+            }
+
+            .yes-container {
+                padding: 30px 20px;
+            }
+
+            .yes-container h2 {
+                font-size: 18px;
+            }
+
+            .love-message p {
+                font-size: 16px;
+            }
+
+            .hearts {
+                font-size: 30px;
+            }
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+.floating-heart {
+            position: fixed;
+            font-size: 30px;
+            animation: float 3s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Picture elements */
+        .side-picture {
+            position: absolute;
+            width: 252px;
+            height: 252px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .side-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .left-picture {
+            animation: slideRotateLeft 0.8s ease-out forwards;
+            animation-delay: 0.1s;
+        }
+
+        .right-picture {
+            animation: slideRotateRight 0.8s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .top-left-picture {
+            animation: slideRotateTopLeft 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        .top-right-picture {
+            animation: slideRotateTopRight 0.8s ease-out forwards;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes slideRotateLeft {
+            0% {
+                opacity: 0;
+                left: -150px;
+                bottom: -150px;
+                transform: rotate(0deg);
+            }
+            50% {
+                opacity: 0.5;
+                transform: rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                left: 20px;
+                bottom: 20px;
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideRotateRight {
+            0% {
+                opacity: 0;
+                right: -150px;
+                bottom: -150px;
+                transform: rotate(0deg);
+            }
+            50% {
+                opacity: 0.5;
+                transform: rotate(-180deg);
+            }
+            100% {
+                opacity: 1;
+                right: 20px;
+                bottom: 20px;
+                transform: rotate(-360deg);
+            }
+        }
+
+        @keyframes slideRotateTopLeft {
+            0% {
+                opacity: 0;
+                left: -150px;
+                top: -150px;
+                transform: rotate(0deg);
+            }
+            50% {
+                opacity: 0.5;
+                transform: rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                left: 20px;
+                top: 20px;
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideRotateTopRight {
+            0% {
+                opacity: 0;
+                right: -150px;
+                top: -150px;
+                transform: rotate(0deg);
+            }
+            50% {
+                opacity: 0.5;
+                transform: rotate(-180deg);
+            }
+            100% {
+                opacity: 1;
+                right: 20px;
+                top: 20px;
+                transform: rotate(-360deg);
+            }
+        }
+
+        .yes-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .side-picture {
+                position: relative;
+                width: 182px;
+                height: 182px;
+                margin: 10px 0;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                top: auto !important;
+            }
+
+            .left-picture {
+                animation: popIn 0.6s ease-out forwards;
+                animation-delay: 0.1s;
+            }
+
+            .right-picture {
+                animation: popIn 0.6s ease-out forwards;
+                animation-delay: 0.5s;
+            }
+
+            @keyframes popIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0) rotate(-10deg);
+                }
+                50% {
+                    transform: scale(1.1) rotate(5deg);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) rotate(0deg);
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Page -->
+    <div class="main-page" id="mainPage">
+        <div class="main-container">
+            <h1>Vlera will you be my Valentine?</h1>
+            <div class="button-container">
+                <button class="btn btn-yes" id="yesBtn">Yes</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yes Page -->
+    <div class="yes-page" id="yesPage">
+        <div class="side-picture left-picture"><img src="IMG_0594.jpeg" alt="You"></div>
+        <div class="side-picture right-picture"><img src="IMG_8103.jpeg" alt="You"></div>
+        <div class="side-picture top-left-picture"><img src="IMG_8671.jpeg" alt="You"></div>
+        <div class="side-picture top-right-picture"><img src="IMG_9399.jpeg" alt="You"></div>
+        <div class="yes-container">
+            <h2>❤️ You are now officially my Valentine ❤️</h2>
+            <div class="yes-content-wrapper">
+                <div class="love-message">
+                    <div class="hearts">💕 💕 💕</div>
+                    <p>te duaaaaa me se shumti, ore jeta jem 💕</p>
+                    <div class="hearts">💕 💕 💕</div>
+                </div>
+            </div>
+            <button class="back-button" id="backBtn">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        const mainPage = document.getElementById('mainPage');
+        const yesPage = document.getElementById('yesPage');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const backBtn = document.getElementById('backBtn');
+
+        let noClickCount = 0;
+        const noButtonStates = [
+            'No',
+            'qysh',
+            'r u sure?',
+            'hahahaha harro'
+        ];
+
+        // Yes button click
+        yesBtn.addEventListener('click', function() {
+            mainPage.style.display = 'none';
+            yesPage.style.display = 'flex';
+            document.body.style.background = 'linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 50%, #FFE4E1 100%)';
+            createFloatingHearts();
+        });
+
+        // No button click
+        noBtn.addEventListener('click', function() {
+            noClickCount++;
+
+            if (noClickCount < noButtonStates.length) {
+                // Change button text
+                noBtn.textContent = noButtonStates[noClickCount];
+            } else {
+                // Make button move around screen
+                moveButtonAround();
+            }
+        });
+
+        // Move button around screen randomly
+        function moveButtonAround() {
+            const randomX = Math.random() * (window.innerWidth - 200);
+            const randomY = Math.random() * (window.innerHeight - 100);
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.zIndex = '1000';
+        }
+
+        // Move button when cursor gets near it (after "hahahaha harro")
+        document.addEventListener('mousemove', function(e) {
+            if (noClickCount >= noButtonStates.length) {
+                const rect = noBtn.getBoundingClientRect();
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - (rect.left + rect.width / 2), 2) +
+                    Math.pow(e.clientY - (rect.top + rect.height / 2), 2)
+                );
+
+                // If cursor is within 100px, move the button
+                if (distance < 100) {
+                    noBtn.classList.add('escaping');
+                    moveButtonAround();
+                } else {
+                    noBtn.classList.remove('escaping');
+                }
+            }
+        });
+
+        // Back button
+        backBtn.addEventListener('click', function() {
+            mainPage.style.display = 'flex';
+            yesPage.style.display = 'none';
+            document.body.style.background = 'linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF69B4 100%)';
+            noClickCount = 0;
+            noBtn.textContent = 'No';
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            noBtn.classList.remove('escaping');
+            removeFloatingHearts();
+        });
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(heart);
+            }
+        }
+
+        // Remove floating hearts
+        function removeFloatingHearts() {
+            const hearts = document.querySelectorAll('.floating-heart');
+            hearts.forEach(heart => heart.remove());
+        }
+
+        // Make yes button harder to click on mobile
+        if (window.innerWidth < 600) {
+            // Mobile optimizations
+        }
+    </script>
+</body>
+</html>
